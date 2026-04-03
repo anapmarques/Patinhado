@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Create your views here.
 
 def home(request):
-    return HttpResponse('Alô mundo!')
+    return render(request, 'PatinhadoWeb/Home.html')
+
+def profile(request):
+    return render(request, 'PatinhadoWeb/Profile.html')
