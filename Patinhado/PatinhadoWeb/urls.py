@@ -3,4 +3,5 @@ from PatinhadoWeb import views
 
 urlpatterns = [
     path('', views.home),
+    path('pet', views.pet),
 ]

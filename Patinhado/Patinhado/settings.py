@@ -99,6 +99,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# # Para onde podem ir as requisições
+# ALLOWED_HOSTS = ['*']
+
+# # Lista de domínios confiáveis
+# CSRF_TRUSTED_ORIGINS = [
+# 'https://localhost:8000',
+# 'http://localhost:8000',
+# ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
