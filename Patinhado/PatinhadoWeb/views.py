@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def home(request):
     return HttpResponse('Alô mundo!')
+
+def pet(request):
+    return render(request, 'PatinhadoWeb/Pet.html')
