@@ -1,23 +1,26 @@
+from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
 
-class Usuario(models.Model):
-    nome = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
+class Usuario(AbstractUser):
     telefone = models.CharField(max_length=20, blank=True)
     endereco = models.TextField(blank=True)
     imagem = models.ImageField(upload_to="usuarios/", blank=True, null=True)
-    data_cadastro = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.pk and not self.password:
+            self.password = '!'
+        super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ["nome"]
+        ordering = ["first_name"]
         verbose_name = "Usuário"
         verbose_name_plural = "Usuários"
 
     def __str__(self):
-        return self.nome
+        return self.get_full_name() or self.username
 
 
 class Pet(models.Model):

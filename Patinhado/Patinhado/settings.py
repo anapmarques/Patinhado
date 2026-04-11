@@ -73,6 +73,8 @@ WSGI_APPLICATION = 'Patinhado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+AUTH_USER_MODEL = 'PatinhadoWeb.Usuario'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

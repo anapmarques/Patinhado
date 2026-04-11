@@ -1,11 +1,27 @@
 from django.shortcuts import render
 from django.views.generic.base import View
+from django.shortcuts import redirect
+from django.contrib.auth.forms import UserCreationForm
 from .models import Pet, Usuario
 
 # Create your views here.
 
 def home(request):
     return render(request, 'PatinhadoWeb/Home.html')
+
+def login(request):
+    return render(request, 'PatinhadoWeb/auth/Login.html')
+
+def registro(request):
+    if request.method == 'POST':
+        formulario = UserCreationForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('sec-home')
+    else:
+        formulario = UserCreationForm()
+        contexto = {'form': formulario, }
+    return render(request, 'PatinhadoWeb/auth/Register.html', contexto)
 
 def profile(request):
     return render(request, 'PatinhadoWeb/Profile.html')
@@ -47,7 +63,7 @@ class PetAddView(View):
         doador_id = request.POST.get('doador_id')
 
         doador = None
-        if request.user.is_authenticated and isinstance(request.user, Usuario):
+        if request.user.is_authenticated:
             doador = request.user
         elif doador_id:
             doador = Usuario.objects.filter(pk=doador_id).first()
@@ -79,7 +95,7 @@ class PetAdoptView(View):
     model = Pet
     
     def post(self, request, pk, *args, **kwargs):
-        if not request.user.is_authenticated or not isinstance(request.user, Usuario):
+        if not request.user.is_authenticated:
             return render(request, 'PatinhadoWeb/templates/PatinhadoWeb/Pet.html', {
                 'error': 'Usuário não autenticado.',
                 'pet': self.model.objects.get(pk=pk),
@@ -97,7 +113,7 @@ class ProfileView(View):
     template_name = 'PatinhadoWeb/templates/PatinhadoWeb/Profile.html'
     
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not isinstance(request.user, Usuario):
+        if not request.user.is_authenticated:
             return render(request, self.template_name, {'error': 'Usuário não autenticado.'})
         
         usuario = request.user
