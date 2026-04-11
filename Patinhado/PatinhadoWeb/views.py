@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from django.views.generic.base import View
-from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UsuarioCreationForm
 from .models import Pet, Usuario
 
-# Create your views here.
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 def home(request):
     return render(request, 'PatinhadoWeb/Home.html')
@@ -14,13 +16,14 @@ def login(request):
 
 def registro(request):
     if request.method == 'POST':
-        formulario = UserCreationForm(request.POST)
+        formulario = UsuarioCreationForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('sec-home')
+            return redirect('profile')
+        contexto = {'form': formulario}
     else:
-        formulario = UserCreationForm()
-        contexto = {'form': formulario, }
+        formulario = UsuarioCreationForm()
+        contexto = {'form': formulario}
     return render(request, 'PatinhadoWeb/auth/Register.html', contexto)
 
 def profile(request):
@@ -110,11 +113,11 @@ class PetAdoptView(View):
         })
 
 class ProfileView(View):
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/Profile.html'
+    template_name = 'PatinhadoWeb/Profile.html'
     
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return render(request, self.template_name, {'error': 'Usuário não autenticado.'})
+            return redirect('home')
         
         usuario = request.user
         pets_doacao = usuario.animais_doacao.all()
