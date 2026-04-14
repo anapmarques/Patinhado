@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'PatinhadoWeb\css\style.css' %}">
+
+<!-- ── HEADER ────────────────────────────────── -->
+<header>
+    <div class="logo">Logo</div>
+  
+    <nav>
+      <a href="#">About Us</a>
+      <a href="#">List</a>
+      <a href="#">Give</a>
+      <a href="#">Contact</a>
+    </nav>
+  
+    <div class="header-user" aria-label="User profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+  </header>
+  
+  <!-- ── HERO ──────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-img"></div>
+    <div class="hero-info">
+      <h1>Luna</h1>
+      <h3>6 anos, 8 meses</h3>
+      <span>Tãoooooo lindinha</span>
+    </div>
+  </section>
+  
+  <!-- fade-out gradient overlay (the "hatched" divider) -->
+  <div class="fade-divider"></div>
+  
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">Logo</div>
+    <div class="footer-links">
+      <a href="#">About Us</a>
+      <a href="#">List</a>
+      <a href="#">Give</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026</div>
+  </footer>
+  
+  </body>
+  </html>
