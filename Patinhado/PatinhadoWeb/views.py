@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.views.generic.base import View
-from .forms import UsuarioCreationForm
+from .forms import UsuarioCreationForm, PetModelForm
 from .models import Pet, Usuario
 
 def logout_view(request):
@@ -29,6 +29,9 @@ def registro(request):
 def profile(request):
     return render(request, 'PatinhadoWeb/Profile.html')
 
+def addpet(request):
+    return render(request, 'PatinhadoWeb\pet\AddPet.html')
+
 class PetListView(View):
     model = Pet
     template_name = 'PatinhadoWeb/templates/PatinhadoWeb/PetList.html'
@@ -51,48 +54,23 @@ class PetDetailView(View):
 
 class PetAddView(View):
     model = Pet
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/AddPet.html'
+    template_name = 'PatinhadoWeb/pet/AddPet.html'
     
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        context = {'form': PetModelForm()}
+        return render(request, self.template_name, context)
     
     def post(self, request, *args, **kwargs):
-        nome = request.POST.get('nome')
-        especie = request.POST.get('especie')
-        raca = request.POST.get('raca')
-        idade = request.POST.get('idade')
-        descricao = request.POST.get('descricao')
-        foto_url = request.POST.get('foto_url')
-        doador_id = request.POST.get('doador_id')
-
-        doador = None
-        if request.user.is_authenticated:
-            doador = request.user
-        elif doador_id:
-            doador = Usuario.objects.filter(pk=doador_id).first()
-
-        if not doador:
-            return render(request, self.template_name, {
-                'error': 'É necessário informar um usuário doador para cadastrar o animal.',
-            })
-
-        try:
-            idade = int(idade) if idade else None
-        except (TypeError, ValueError):
-            idade = None
-
-        pet = self.model(
-            nome=nome,
-            especie=especie,
-            raca=raca,
-            idade=idade,
-            descricao=descricao,
-            foto_url=foto_url,
-            doador=doador,
-        )
-        pet.save()
-
-        return render(request, self.template_name, {'success': True})
+        formulario = PetModelForm(request.POST)
+        if formulario.is_valid():
+            pet = formulario.save(commit=False)
+            pet.doador = request.user
+            print(pet.doador)
+            pet.save()
+            return redirect('profile')
+        else:
+            context = {'form': formulario}
+            return render(request, 'PatinhadoWeb/addPet.html', context)
 
 class PetAdoptView(View):
     model = Pet
