@@ -48,7 +48,7 @@
   <div class="history-grid">
     {% if pets_doacao %}
       {% for pet in pets_doacao %}
-        <div class="history-card">
+        <a href="{% url 'detalhepet' pet.pk %}" class="history-card">
           <div class="history-img">
             {% if pet.foto_url %}
               <img src="{{ pet.foto_url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -60,7 +60,7 @@
             <div class="history-title">{{ pet.nome }}</div>
             <div class="history-meta">{{ pet.get_especie_display }} · {{ pet.data_chegada|date:"M Y" }}</div>
           </div>
-        </div>
+        </a>
       {% endfor %}
     {% else %}
       <p style="color: var(--mid); font-size: .9rem;">You haven't posted any pets for adoption yet.</p>

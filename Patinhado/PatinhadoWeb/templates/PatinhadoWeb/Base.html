@@ -20,7 +20,7 @@
 
   <nav>
       <a href="{% url 'about' %}"   {% if request.resolver_match.url_name == 'about'   %}class="active"{% endif %}>About Us</a>
-      <a href="{% url 'list' %}"    {% if request.resolver_match.url_name == 'list'    %}class="active"{% endif %}>List</a>
+      <a href="{% url 'listapets' %}"    {% if request.resolver_match.url_name == 'list'    %}class="active"{% endif %}>List</a>
       <a href="{% url 'give' %}"    {% if request.resolver_match.url_name == 'give'    %}class="active"{% endif %}>Give</a>
       <a href="{% url 'contact' %}" {% if request.resolver_match.url_name == 'contact' %}class="active"{% endif %}>Contact</a>
   </nav>

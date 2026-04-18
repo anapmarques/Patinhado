@@ -1,0 +1,72 @@
+{% extends "PatinhadoWeb/Base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/petDetail.css' %}">
+{% endblock %}
+ 
+{% block content %}
+  <main class="page-wrapper">
+ 
+    <div class="breadcrumb">
+      <a href="{% url 'listapets' %}">Pets</a>
+      <span>›</span>
+      {{ pet.nome }}
+    </div>
+ 
+    <div class="detail-card">
+ 
+      <!-- Foto ou placeholder -->
+      {% if pet.foto_url %}
+        <img src="{{ pet.foto_url }}" alt="Foto de {{ pet.nome }}" class="detail-img" />
+      {% else %}
+        <div class="detail-img-placeholder">
+          <span>{{ pet.get_especie_display }}</span>
+        </div>
+      {% endif %}
+ 
+      <div class="detail-body">
+        <div class="detail-especie">{{ pet.get_especie_display }}</div>
+        <h1 class="detail-nome">{{ pet.nome }}</h1>
+        <h4 class="detail-info">{{ pet.raca }} | {{ pet.idade }} anos</h4>
+        
+        {% if pet.adotado %}
+          <span class="badge badge-adotado">Adotado</span>
+        {% else %}
+          <span class="badge badge-disponivel">Disponível para adoção</span>
+        {% endif %}
+
+        <h4 class="detail-info">{{ pet.data_chegada|date:"d/m/Y" }}</h4>
+ 
+        <!-- <table class="info-table">
+          <tr>
+            <th>Doador</th>
+            <td>{{ pet.doador }}</td>
+          </tr>
+          {% if pet.adotado %}
+          <tr>
+            <th>Adotante</th>
+            <td>{{ pet.adotante }}</td>
+          </tr>
+          <tr>
+            <th>Data adoção</th>
+            <td>{{ pet.data_adocao|date:"d/m/Y" }}</td>
+          </tr>
+          {% endif %}
+        </table> -->
+
+        {% if pet.descricao %}
+          <p class="descricao-texto">{{ pet.descricao }}</p>
+        {% endif %}
+ 
+        {% if request.user.is_authenticated and request.user == pet.doador %}
+          <div class="detail-actions">
+            <a href="{% url 'editapet' pet.pk %}" class="btn-editar">Editar</a>
+            <a href="{% url 'excluipet' pet.pk %}" class="btn-excluir">Excluir</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+ 
+  </main>
+{% endblock %}

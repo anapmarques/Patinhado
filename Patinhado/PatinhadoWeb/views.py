@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.views.generic.base import View
 from .forms import UsuarioCreationForm, PetModelForm
-from .models import Pet, Usuario
+from .models import Pet
 
 def logout_view(request):
     logout(request)
@@ -30,29 +30,21 @@ def profile(request):
     return render(request, 'PatinhadoWeb/Profile.html')
 
 def addpet(request):
-    return render(request, 'PatinhadoWeb\pet\AddPet.html')
+    return render(request, 'PatinhadoWeb/pet/AddPet.html')
 
 class PetListView(View):
-    model = Pet
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/PetList.html'
-    context_object_name = 'pets'
-    
-    def get(self, request, *args, **kwargs):
-        pets = self.model.objects.filter(adotado=False).order_by('data_chegada')
-        context = {self.context_object_name: pets}
-        return render(request, self.template_name, context)
+    def get(self, request):
+        pets = Pet.objects.all()
+        contexto = {'pets': pets}
+        return render(request, 'PatinhadoWeb/pet/PetList.html', contexto)
 
 class PetDetailView(View):
-    model = Pet
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/Pet.html'
-    context_object_name = 'pet'
-    
-    def get(self, request, pk, *args, **kwargs):
-        pet = self.model.objects.get(pk=pk)
-        context = {self.context_object_name: pet}
-        return render(request, self.template_name, context)
+    def get(self, request, pk):
+        pet = get_object_or_404(Pet, pk=pk)
+        contexto = {'pet': pet}
+        return render(request, 'PatinhadoWeb/pet/PetDetail.html', contexto)
 
-class PetAddView(View):
+class PetCreateView(View):
     model = Pet
     template_name = 'PatinhadoWeb/pet/AddPet.html'
     
@@ -70,7 +62,43 @@ class PetAddView(View):
             return redirect('profile')
         else:
             context = {'form': formulario}
-            return render(request, 'PatinhadoWeb/addPet.html', context)
+            return render(request, self.template_name, context)
+
+class PetUpdateView(View):
+    def get(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        formulario = PetModelForm(instance=pet)
+        contexto = {'form': formulario, 'pet': pet}
+        return render(request, 'PatinhadoWeb/pet/PetEdit.html', contexto)
+ 
+    def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        formulario = PetModelForm(request.POST, instance=pet)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalhepet', pk=pk)
+        else:
+            contexto = {'form': formulario, 'pet': pet}
+            return render(request, 'PatinhadoWeb/pet/PetEdit.html', contexto)
+
+class PetDeleteView(View):
+    def get(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        contexto = {'pet': pet}
+        return render(request, 'PatinhadoWeb/pet/PetDelete.html', contexto)
+ 
+    def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        pet.delete()
+        return redirect('listapets')
 
 class PetAdoptView(View):
     model = Pet
