@@ -1,0 +1,43 @@
+{% extends "PatinhadoWeb/Base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/addpet.css' %}">
+{% endblock %}
+ 
+{% block content %}
+  <main class="add-wrapper">
+    <div class="add-card">
+      <h1>Add Pet</h1>
+      <p class="subtitle">Register pet data</p>
+ 
+      <form class="add-form" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="field-row">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                        <span class="helptext">{{ field.help_text }}</span>
+                    {% endif %}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if form.non_field_errors %}
+                <ul class="errorlist">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <input type="submit" value="Add Pet" class="btn-submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

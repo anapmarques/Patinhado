@@ -1,0 +1,278 @@
+/* ── HERO (foto do pet) ──────────────────── */
+.hero {
+  position: relative;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #d4c9bb 0%, #b8aa98 40%, #8c7c6a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-placeholder span {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.18);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* ── FADE-OUT DIVIDER ────────────────────── */
+.fade-divider {
+  position: relative;
+  height: 100px;
+  margin-top: -100px;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── BREADCRUMB ──────────────────────────── */
+.breadcrumb {
+  padding: 0 40px;
+  margin-bottom: 28px;
+  font-size: .72rem;
+  color: var(--mid);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.breadcrumb a {
+  color: var(--mid);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb .sep { margin: 0 8px; }
+
+/* ── DETAIL LAYOUT ───────────────────────── */
+.detail-wrapper,
+.detail-card {
+  padding: 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  align-items: start;
+}
+
+.detail-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(26,23,20,.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 14px 35px rgba(0,0,0,.06);
+  animation: fadeUp .4s ease;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.detail-img,
+.detail-img-placeholder {
+  width: 100%;
+  min-height: 480px;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, #d4c9bb 0%, #b8aa98 40%, #8c7c6a 100%);
+}
+
+.detail-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-img-placeholder span {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.85);
+  text-transform: uppercase;
+}
+
+.detail-body {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── MAIN CONTENT ────────────────────────── */
+.detail-main {}
+
+.detail-especie {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.detail-nome {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.detail-info {
+    font-size: .9rem;
+    font-weight: 300;
+    color: var(--mid);
+    margin-bottom: 16px;
+}
+
+/* ── BADGE ───────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: .62rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  margin-bottom: 28px;
+}
+
+.badge-disponivel { background: #e8f5e9; color: #2e7d32; }
+.badge-adotado    { background: #fce4ec; color: var(--accent); }
+
+/* ── DESCRIÇÃO ───────────────────────────── */
+.detail-desc-label {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(26,23,20,.1);
+}
+
+.detail-desc {
+  font-size: .9rem;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+/* ── ACTION BUTTONS ──────────────────────── */
+.detail-actions {
+  display: flex;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.btn-editar {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 12px 28px;
+  border: none;
+  transition: background .2s;
+}
+
+.btn-editar:hover { background: var(--accent); }
+
+.btn-excluir {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  background: transparent;
+  padding: 12px 28px;
+  border: 1px solid rgba(192,57,43,.3);
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.btn-excluir:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* ── SIDEBAR (ficha técnica) ─────────────── */
+.detail-sidebar {
+  background: var(--card-bg);
+  border: 1px solid rgba(26,23,20,.1);
+  padding: 32px 28px;
+  animation: fadeUp .4s ease;
+}
+
+.sidebar-title {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(26,23,20,.1);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(26,23,20,.06);
+  font-size: .85rem;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-row .label {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.info-row .value {
+  color: var(--ink);
+  font-weight: 300;
+  text-align: right;
+}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 900px) {
+  .detail-wrapper {
+    grid-template-columns: 1fr;
+    padding: 0 24px 60px;
+  }
+  .detail-sidebar { order: -1; }
+  .breadcrumb { padding: 0 24px; }
+  .hero { height: 45vh; }
+}
+
+@media (max-width: 560px) {
+  .detail-nome { font-size: 1.7rem; }
+  .detail-actions { flex-direction: column; }
+  .btn-editar, .btn-excluir { text-align: center; }
+}

@@ -12,4 +12,9 @@ urlpatterns = [
     path('list/', views.home, name='list'),
     path('give/', views.home, name='give'),
     path('contact/', views.home, name='contact'),
+    path('pets/', views.PetListView.as_view(), name='listapets'),
+    path('pets/<int:pk>/', views.PetDetailView.as_view(), name='detalhepet'),
+    path('pets/add/', views.PetCreateView.as_view(), name='addpet'),
+    path('pets/<int:pk>/editar/', views.PetUpdateView.as_view(), name='editapet'),
+    path('pets/<int:pk>/excluir/', views.PetDeleteView.as_view(), name='excluipet'),
 ]

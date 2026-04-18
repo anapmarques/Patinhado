@@ -1,0 +1,60 @@
+{% extends "PatinhadoWeb/Base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/petDelete.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="page-wrapper">
+    <div class="confirm-card">
+ 
+      <div class="warn-icon">!</div>
+ 
+      <h1>Excluir pet</h1>
+      <p>Tem certeza que deseja excluir</p>
+      <p class="pet-destaque">{{ pet.nome }}?</p>
+ 
+      <!-- Resumo do pet que será excluído -->
+      <div class="pet-info">
+        <div class="pet-info-row">
+          <span class="label">Espécie</span>
+          <span class="value">{{ pet.get_especie_display }}</span>
+        </div>
+        <div class="pet-info-row">
+          <span class="label">Raça</span>
+          <span class="value">{{ pet.raca|default:"—" }}</span>
+        </div>
+        <div class="pet-info-row">
+          <span class="label">Idade</span>
+          <span class="value">{% if pet.idade %}{{ pet.idade }} ano{{ pet.idade|pluralize }}{% else %}—{% endif %}</span>
+        </div>
+        <div class="pet-info-row">
+          <span class="label">Status</span>
+          <span class="value">{% if pet.adotado %}Adotado{% else %}Disponível{% endif %}</span>
+        </div>
+        <div class="pet-info-row">
+          <span class="label">Doador</span>
+          <span class="value">{{ pet.doador }}</span>
+        </div>
+      </div>
+ 
+      {% if pet.adotado %}
+        <p class="aviso-adotado">
+          Atenção: este pet já foi adotado. A exclusão removerá também o vínculo com o adotante.
+        </p>
+      {% endif %}
+ 
+      <p>Esta ação é permanente e não pode ser desfeita.</p>
+ 
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="btn-row">
+          <button type="submit" class="btn-confirmar">Sim, excluir</button>
+          <a href="{% url 'detalhepet' pet.pk %}" class="btn-cancelar">Cancelar</a>
+        </div>
+      </form>
+ 
+    </div>
+  </main>
+{% endblock %}

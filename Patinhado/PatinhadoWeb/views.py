@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.views.generic.base import View
-from .forms import UsuarioCreationForm
-from .models import Pet, Usuario
+from .forms import UsuarioCreationForm, PetModelForm
+from .models import Pet
 
 def logout_view(request):
     logout(request)
@@ -29,70 +29,76 @@ def registro(request):
 def profile(request):
     return render(request, 'PatinhadoWeb/Profile.html')
 
+def addpet(request):
+    return render(request, 'PatinhadoWeb/pet/AddPet.html')
+
 class PetListView(View):
-    model = Pet
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/PetList.html'
-    context_object_name = 'pets'
-    
-    def get(self, request, *args, **kwargs):
-        pets = self.model.objects.filter(adotado=False).order_by('data_chegada')
-        context = {self.context_object_name: pets}
-        return render(request, self.template_name, context)
+    def get(self, request):
+        pets = Pet.objects.all()
+        contexto = {'pets': pets}
+        return render(request, 'PatinhadoWeb/pet/PetList.html', contexto)
 
 class PetDetailView(View):
-    model = Pet
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/Pet.html'
-    context_object_name = 'pet'
-    
-    def get(self, request, pk, *args, **kwargs):
-        pet = self.model.objects.get(pk=pk)
-        context = {self.context_object_name: pet}
-        return render(request, self.template_name, context)
+    def get(self, request, pk):
+        pet = get_object_or_404(Pet, pk=pk)
+        contexto = {'pet': pet}
+        return render(request, 'PatinhadoWeb/pet/PetDetail.html', contexto)
 
-class PetAddView(View):
+class PetCreateView(View):
     model = Pet
-    template_name = 'PatinhadoWeb/templates/PatinhadoWeb/AddPet.html'
+    template_name = 'PatinhadoWeb/pet/AddPet.html'
     
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        context = {'form': PetModelForm()}
+        return render(request, self.template_name, context)
     
     def post(self, request, *args, **kwargs):
-        nome = request.POST.get('nome')
-        especie = request.POST.get('especie')
-        raca = request.POST.get('raca')
-        idade = request.POST.get('idade')
-        descricao = request.POST.get('descricao')
-        foto_url = request.POST.get('foto_url')
-        doador_id = request.POST.get('doador_id')
+        formulario = PetModelForm(request.POST)
+        if formulario.is_valid():
+            pet = formulario.save(commit=False)
+            pet.doador = request.user
+            print(pet.doador)
+            pet.save()
+            return redirect('profile')
+        else:
+            context = {'form': formulario}
+            return render(request, self.template_name, context)
 
-        doador = None
-        if request.user.is_authenticated:
-            doador = request.user
-        elif doador_id:
-            doador = Usuario.objects.filter(pk=doador_id).first()
+class PetUpdateView(View):
+    def get(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        formulario = PetModelForm(instance=pet)
+        contexto = {'form': formulario, 'pet': pet}
+        return render(request, 'PatinhadoWeb/pet/PetEdit.html', contexto)
+ 
+    def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        formulario = PetModelForm(request.POST, instance=pet)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('detalhepet', pk=pk)
+        else:
+            contexto = {'form': formulario, 'pet': pet}
+            return render(request, 'PatinhadoWeb/pet/PetEdit.html', contexto)
 
-        if not doador:
-            return render(request, self.template_name, {
-                'error': 'É necessário informar um usuário doador para cadastrar o animal.',
-            })
-
-        try:
-            idade = int(idade) if idade else None
-        except (TypeError, ValueError):
-            idade = None
-
-        pet = self.model(
-            nome=nome,
-            especie=especie,
-            raca=raca,
-            idade=idade,
-            descricao=descricao,
-            foto_url=foto_url,
-            doador=doador,
-        )
-        pet.save()
-
-        return render(request, self.template_name, {'success': True})
+class PetDeleteView(View):
+    def get(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        contexto = {'pet': pet}
+        return render(request, 'PatinhadoWeb/pet/PetDelete.html', contexto)
+ 
+    def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        pet = get_object_or_404(Pet, pk=pk, doador=request.user)
+        pet.delete()
+        return redirect('listapets')
 
 class PetAdoptView(View):
     model = Pet
