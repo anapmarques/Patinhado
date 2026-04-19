@@ -50,7 +50,9 @@
       {% for pet in pets_doacao %}
         <a href="{% url 'detalhepet' pet.pk %}" class="history-card">
           <div class="history-img">
-            {% if pet.foto_url %}
+            {% if pet.foto %}
+              <img src="{{ pet.foto.url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% elif pet.foto_url %}
               <img src="{{ pet.foto_url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
             {% else %}
               <span>{{ pet.especie|upper|slice:":3" }}</span>
@@ -67,14 +69,40 @@
     {% endif %}
   </div>
 
+  <h2 class="section-title">Incoming Adoption Requests</h2>
+
+  <div class="history-grid">
+    {% if pedidos_recebidos %}
+      {% for pedido in pedidos_recebidos %}
+        {% include "PatinhadoWeb/pet/_pedido_card.html" with show_requester=True %}
+      {% endfor %}
+    {% else %}
+      <p style="color: var(--mid); font-size: .9rem;">You haven't received any adoption requests yet.</p>
+    {% endif %}
+  </div>
+
+  <h2 class="section-title">My Adoption Requests</h2>
+
+  <div class="history-grid">
+    {% if pedidos_adocao %}
+      {% for pedido in pedidos_adocao %}
+        {% include "PatinhadoWeb/pet/_pedido_card.html" with show_requester=False %}
+      {% endfor %}
+    {% else %}
+      <p style="color: var(--mid); font-size: .9rem;">You haven't made any adoption requests yet.</p>
+    {% endif %}
+  </div>
+
   <h2 class="section-title">Adoption History</h2>
 
   <div class="history-grid">
     {% if pets_adotados %}
       {% for pet in pets_adotados %}
-        <div class="history-card">
+        <a href="{% url 'detalhepet' pet.pk %}" class="history-card">
           <div class="history-img">
-            {% if pet.foto_url %}
+            {% if pet.foto %}
+              <img src="{{ pet.foto.url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% elif pet.foto_url %}
               <img src="{{ pet.foto_url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
             {% else %}
               <span>{{ pet.especie|upper|slice:":3" }}</span>
@@ -84,7 +112,7 @@
             <div class="history-title">{{ pet.nome }}</div>
             <div class="history-meta">{{ pet.get_especie_display }} · {{ pet.data_adocao|date:"M Y" }}</div>
           </div>
-        </div>
+        </a>
       {% endfor %}
     {% else %}
       <p style="color: var(--mid); font-size: .9rem;">You haven't adopted any pets yet.</p>

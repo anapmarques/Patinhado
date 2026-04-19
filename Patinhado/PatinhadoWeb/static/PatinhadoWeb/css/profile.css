@@ -127,6 +127,20 @@ main {
   .history-title { font-size: .8rem; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
   .history-meta  { font-size: .7rem; color: var(--mid); }
 
+  .badge-pendente, .badge-aprovado, .badge-rejeitado, .badge-cancelado {
+    display: inline-block;
+    font-size: .55rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+  }
+  .badge-pendente { background: #fff3e0; color: #e65100; }
+  .badge-aprovado { background: #e8f5e9; color: #2e7d32; }
+  .badge-rejeitado { background: #fce4ec; color: #c62828; }
+  .badge-cancelado { background: #eceff1; color: #546e7a; }
+  .badge-rejeitado { background: #fce4ec; color: #c62828; }
+
   /* ── ACTIONS ──────────────────────────────── */
   .actions {
     display: flex;

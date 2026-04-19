@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario, Pet
+from .models import Usuario, Pet, PedidoAdocao
 
 
 class UsuarioCreationForm(UserCreationForm):
@@ -85,5 +85,21 @@ class PetModelForm(forms.ModelForm):
         help_text='Ou insira o link de uma foto do pet',
         widget=forms.URLInput(attrs={
             'placeholder': 'https://exemplo.com/foto.jpg',
+        })
+    )
+
+
+class PedidoAdocaoForm(forms.ModelForm):
+    class Meta:
+        model = PedidoAdocao
+        fields = ['mensagem']
+
+    mensagem = forms.CharField(
+        label='Mensagem para o doador',
+        required=False,
+        help_text='Conte um pouco sobre você e por que quer adotar este pet',
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Olá! Me chamo... e estou interesado em adotar o pet...',
+            'rows': 5,
         })
     )

@@ -1,0 +1,92 @@
+{% extends "PatinhadoWeb/Base.html" %}
+{% load static %}
+{% block title %}Pedido de Adoção{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/addpet.css' %}">
+{% endblock %}
+ 
+{% block content %}
+<main class="page-wrapper">
+  <div class="form-card">
+    <p class="pet-name-label">Pedido de Adoção</p>
+    <h1>{{ pedido.animal.nome }}</h1>
+
+    <div class="pet-preview">
+      {% if pedido.animal.foto %}
+        <img src="{{ pedido.animal.foto.url }}" alt="{{ pedido.animal.nome }}">
+      {% elif pedido.animal.foto_url %}
+        <img src="{{ pedido.animal.foto_url }}" alt="{{ pedido.animal.nome }}">
+      {% endif %}
+      <p>{{ pedido.animal.get_especie_display }} | {{ pedido.animal.raca }} | {{ pedido.animal.idade }} anos</p>
+    </div>
+
+    <table class="info-table">
+      <tr>
+        <th>Solicitante</th>
+        <td>{{ pedido.solicitante.username }}</td>
+      </tr>
+      <tr>
+        <th>Doador</th>
+        <td>{{ pedido.animal.doador.username }}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>
+          {% if pedido.status == 'pendente' %}
+            <span class="badge-pendente">Pendente</span>
+          {% elif pedido.status == 'aprovado' %}
+            <span class="badge-aprovado">Aprovado</span>
+          {% elif pedido.status == 'cancelado' %}
+            <span class="badge-cancelado">Cancelado</span>
+          {% else %}
+            <span class="badge-rejeitado">Rejeitado</span>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Data do Pedido</th>
+        <td>{{ pedido.data_pedido|date:"d/m/Y" }}</td>
+      </tr>
+      {% if pedido.data_resposta %}
+      <tr>
+        <th>Data da Resposta</th>
+        <td>{{ pedido.data_resposta|date:"d/m/Y" }}</td>
+      </tr>
+      {% endif %}
+    </table>
+
+    {% if pedido.mensagem %}
+      <div class="detail-desc-label">Mensagem</div>
+      <p class="detail-desc">{{ pedido.mensagem }}</p>
+    {% endif %}
+
+    {% if pedido.status == 'pendente' %}
+      {% if request.user == pedido.solicitante %}
+        <div class="btn-row">
+          <a href="{% url 'edit_pedido' pedido.pk %}" class="btn-submit">Editar</a>
+          <form method="post" action="{% url 'cancela_pedido' pedido.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-cancelar">Cancelar Pedido</button>
+          </form>
+        </div>
+      {% elif request.user == pedido.animal.doador %}
+        <div class="btn-row">
+          <form method="post" action="{% url 'aprova_pedido' pedido.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-submit">Aprovar</button>
+          </form>
+          <form method="post" action="{% url 'rejeita_pedido' pedido.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-cancelar">Rejeitar</button>
+          </form>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="btn-row">
+        <a href="{% url 'profile' %}" class="btn-submit">Voltar ao Perfil</a>
+      </div>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

@@ -33,6 +33,31 @@
   margin-bottom: 34px;
 }
 
+.pet-preview {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid rgba(26,23,20,.08);
+  border-radius: 12px;
+  margin-bottom: 28px;
+}
+
+.pet-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.pet-preview p {
+  font-size: .85rem;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
 .form-card form {
   display: flex;
   flex-direction: column;

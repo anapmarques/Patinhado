@@ -84,8 +84,9 @@
 .detail-img,
 .detail-img-placeholder {
   width: 100%;
-  min-height: 480px;
+  height: 400px;
   object-fit: cover;
+  object-position: center;
   display: block;
   background: linear-gradient(135deg, #d4c9bb 0%, #b8aa98 40%, #8c7c6a 100%);
 }
@@ -258,6 +259,7 @@
   border: none;
   cursor: pointer;
   transition: background .2s;
+  display: inline-block;
 }
 
 .btn-adotar:hover { background: #388e3c; }

@@ -1,0 +1,56 @@
+{% extends "PatinhadoWeb/Base.html" %}
+{% load static %}
+{% block title %}Adotar {{ pet.nome }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/addpet.css' %}">
+{% endblock %}
+ 
+{% block content %}
+<main class="page-wrapper">
+  <div class="form-card">
+    <p class="pet-name-label">Adoção</p>
+    <h1>Adotar {{ pet.nome }}</h1>
+    <p class="subtitle">Preencha o formulário de solicitação</p>
+
+    <div class="pet-preview">
+      {% if pet.foto %}
+        <img src="{{ pet.foto.url }}" alt="{{ pet.nome }}">
+      {% elif pet.foto_url %}
+        <img src="{{ pet.foto_url }}" alt="{{ pet.nome }}">
+      {% endif %}
+      <p>{{ pet.get_especie_display }} | {{ pet.raca }} | {{ pet.idade }} anos</p>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="field-group">
+        <label for="{{ form.mensagem.id_for_label }}">{{ form.mensagem.label }}</label>
+        {{ form.mensagem }}
+        {% if form.mensagem.help_text %}
+          <span class="helptext">{{ form.mensagem.help_text }}</span>
+        {% endif %}
+        {% if form.mensagem.errors %}
+          <ul class="errorlist">
+            {% for erro in form.mensagem.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      {% if form.non_field_errors %}
+        <ul class="errorlist">
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="btn-row">
+        <button type="submit" class="btn-submit">Enviar Solicitação</button>
+        <a href="{% url 'detalhepet' pet.pk %}" class="btn-cancelar">Cancel</a>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

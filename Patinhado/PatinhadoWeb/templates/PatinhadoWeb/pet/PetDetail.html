@@ -67,10 +67,7 @@
             <a href="{% url 'excluipet' pet.pk %}" class="btn-excluir">Excluir</a>
           </div>
         {% elif request.user.is_authenticated and request.user != pet.doador and not pet.adotado %}
-          <form method="post" action="{% url 'adotapet' pet.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="btn-adotar">Adotar</button>
-          </form>
+          <a href="{% url 'adotar_pet' pet.pk %}" class="btn-adotar">Adotar</a>
         {% endif %}
       </div>
     </div>
