@@ -50,6 +50,7 @@ class Pet(models.Model):
     )
     data_chegada = models.DateTimeField(auto_now_add=True)
     data_adocao = models.DateTimeField(blank=True, null=True)
+    foto = models.ImageField(upload_to='pets/%Y/%m/%d/', blank=True, null=True)
     foto_url = models.URLField(blank=True)
 
     class Meta:

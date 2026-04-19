@@ -1,143 +1,182 @@
-.add-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(26,23,20,.1);
-    padding: 48px 40px;
-    width: 100%;
-    animation: fadeUp .4s ease;
+.form-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(26,23,20,.1);
+  padding: 40px 80px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeUp .4s ease;
 }
 
-.add-card h1 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.8rem;
-    letter-spacing: .02em;
-    color: var(--ink);
-    margin-bottom: 8px;
+.form-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+  margin-bottom: 8px;
 }
 
-.add-card .subtitle {
-    color: var(--mid);
-    font-size: .9rem;
-    font-weight: 300;
-    margin-bottom: 36px;
+.form-card .pet-name-label {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
 }
 
-.add-form {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.form-card .subtitle {
+  color: var(--mid);
+  font-size: .9rem;
+  font-weight: 300;
+  margin-bottom: 34px;
 }
 
-.add-form .field-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 8px 0;
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.add-form label {
-    font-size: .78rem;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--mid);
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
 }
 
-.add-form input[type="text"],
-.add-form input[type="password"],
-.add-form input[type="email"] {
-    padding: 12px 14px;
-    border: 1px solid rgba(26,23,20,.15);
-    background: var(--bg);
-    font-family: 'DM Sans', sans-serif;
-    font-size: .95rem;
-    font-weight: 300;
-    color: var(--ink);
-    outline: none;
-    transition: border-color .2s;
-    box-sizing: border-box;
-    width: 100%;
+.field-group label {
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mid);
 }
 
-.add-form input[type="text"]:focus,
-.add-form input[type="password"]:focus,
-.add-form input[type="email"]:focus {
-    border-color: var(--ink);
+.field-group input[type="text"],
+.field-group input[type="number"],
+.field-group input[type="url"],
+.field-group input[type="file"],
+.field-group select,
+.field-group textarea {
+  padding: 12px 14px;
+  border: 1px solid rgba(26,23,20,.15);
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .95rem;
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+  box-sizing: border-box;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-.add-form .helptext {
-    font-size: .78rem;
-    color: var(--mid);
-    font-weight: 300;
-    line-height: 1.4;
+.field-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236b6560' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
 }
 
-.add-form ul.errorlist {
-    list-style: none;
-    margin: 4px 0 0 0;
-    padding: 0;
-    font-size: .78rem;
-    color: var(--accent);
+.field-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.field-group input[type="text"]:focus,
+.field-group input[type="number"]:focus,
+.field-group input[type="url"]:focus,
+.field-group input[type="file"]:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color: var(--ink);
+}
+
+.field-group .helptext {
+  font-size: .78rem;
+  color: var(--mid);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.field-group ul.errorlist {
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+  font-size: .78rem;
+  color: var(--accent);
+}
+
+.btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .btn-submit {
-    margin-top: 24px;
-    width: 100%;
-    padding: 14px;
-    background: var(--ink);
-    color: var(--bg);
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .85rem;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background .2s;
+  flex: 1;
+  padding: 14px;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
 }
 
-.btn-submit:hover {
-    background: var(--accent);
+.btn-submit:hover { background: var(--accent); }
+
+.btn-cancelar {
+  padding: 14px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mid);
+  background: transparent;
+  border: 1px solid rgba(26,23,20,.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .2s, color .2s;
+}
+
+.btn-cancelar:hover {
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
 .errorlist {
-    list-style: none;
-    margin: 12px 0 0 0;
-    padding: 0;
+  list-style: none;
+  margin: 12px 0 0 0;
+  padding: 0;
 }
 
 .errorlist li {
-    font-size: .82rem;
-    color: var(--accent);
-    padding: 10px 14px;
-    background: rgba(192,57,43,.08);
-    border-left: 3px solid var(--accent);
-}
-
-.login-link {
-    margin-top: 24px;
-    text-align: center;
-    font-size: .88rem;
-    color: var(--mid);
-}
-
-.login-link a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
+  font-size: .82rem;
+  color: var(--accent);
+  padding: 10px 14px;
+  background: rgba(192,57,43,.08);
+  border-left: 3px solid var(--accent);
 }
 
 @media (max-width: 480px) {
-    .add-card {
-        padding: 32px 24px;
-    }
+  .form-card {
+    padding: 32px 24px;
+  }
 
-    .add-form .field-row {
-        flex-direction: column;
-        gap: 6px;
-    }
+  .btn-row {
+    flex-direction: column;
+  }
 }

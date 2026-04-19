@@ -17,7 +17,9 @@
     <div class="detail-card">
  
       <!-- Foto ou placeholder -->
-      {% if pet.foto_url %}
+      {% if pet.foto %}
+        <img src="{{ pet.foto.url }}" alt="Foto de {{ pet.nome }}" class="detail-img" />
+      {% elif pet.foto_url %}
         <img src="{{ pet.foto_url }}" alt="Foto de {{ pet.nome }}" class="detail-img" />
       {% else %}
         <div class="detail-img-placeholder">
@@ -36,24 +38,24 @@
           <span class="badge badge-disponivel">Disponível para adoção</span>
         {% endif %}
 
-        <h4 class="detail-info">{{ pet.data_chegada|date:"d/m/Y" }}</h4>
- 
-        <!-- <table class="info-table">
+<h4 class="detail-info">{{ pet.data_chegada|date:"d/m/Y" }}</h4>
+  
+        <table class="info-table">
           <tr>
             <th>Doador</th>
-            <td>{{ pet.doador }}</td>
+            <td>{{ pet.doador.get_full_name|default:pet.doador.username }}</td>
           </tr>
           {% if pet.adotado %}
           <tr>
             <th>Adotante</th>
-            <td>{{ pet.adotante }}</td>
+            <td>{{ pet.adotante.get_full_name|default:pet.adotante.username }}</td>
           </tr>
           <tr>
             <th>Data adoção</th>
             <td>{{ pet.data_adocao|date:"d/m/Y" }}</td>
           </tr>
           {% endif %}
-        </table> -->
+        </table>
 
         {% if pet.descricao %}
           <p class="descricao-texto">{{ pet.descricao }}</p>
@@ -64,6 +66,11 @@
             <a href="{% url 'editapet' pet.pk %}" class="btn-editar">Editar</a>
             <a href="{% url 'excluipet' pet.pk %}" class="btn-excluir">Excluir</a>
           </div>
+        {% elif request.user.is_authenticated and request.user != pet.doador and not pet.adotado %}
+          <form method="post" action="{% url 'adotapet' pet.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-adotar">Adotar</button>
+          </form>
         {% endif %}
       </div>
     </div>

@@ -40,6 +40,100 @@
 
 .btn-add:hover { background: var(--accent); }
 
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.pet-grid .card {
+  display: block;
+  background: var(--card-bg);
+  border: 1px solid rgba(26,23,20,.1);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+  animation: fadeUp .4s ease backwards;
+}
+
+.pet-grid .card:nth-child(1) { animation-delay: .05s; }
+.pet-grid .card:nth-child(2) { animation-delay: .12s; }
+.pet-grid .card:nth-child(3) { animation-delay: .19s; }
+.pet-grid .card:nth-child(4) { animation-delay: .26s; }
+.pet-grid .card:nth-child(5) { animation-delay: .33s; }
+.pet-grid .card:nth-child(6) { animation-delay: .40s; }
+.pet-grid .card:nth-child(7) { animation-delay: .47s; }
+.pet-grid .card:nth-child(8) { animation-delay: .54s; }
+
+.pet-grid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.1);
+}
+
+.pet-grid .card-img,
+.pet-grid .card-img-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+}
+
+.pet-grid .card-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-grid .card:nth-child(8n+1) .card-img-placeholder { background: #e8e0d5; }
+.pet-grid .card:nth-child(8n+2) .card-img-placeholder { background: #d5dde8; }
+.pet-grid .card:nth-child(8n+3) .card-img-placeholder { background: #d5e8dd; }
+.pet-grid .card:nth-child(8n+4) .card-img-placeholder { background: #e8d5d5; }
+.pet-grid .card:nth-child(8n+5) .card-img-placeholder { background: #dde8d5; }
+.pet-grid .card:nth-child(8n+6) .card-img-placeholder { background: #d5e3e8; }
+.pet-grid .card:nth-child(8n+7) .card-img-placeholder { background: #e8ddd5; }
+.pet-grid .card:nth-child(8n+8) .card-img-placeholder { background: #e8d5e3; }
+
+.pet-grid .card-img-placeholder span {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.7);
+  text-transform: uppercase;
+}
+
+.pet-grid .card-body {
+  padding: 20px;
+}
+
+.pet-grid .card-category {
+  font-size: .64rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.pet-grid .card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.pet-grid .card-raca,
+.pet-grid .card-idade {
+  font-size: .84rem;
+  color: var(--mid);
+  margin-bottom: 4px;
+}
+
+.pet-grid .badge {
+  margin-top: 12px;
+}
+
 .table-wrap {
   overflow-x: auto;
   background: var(--card-bg);
@@ -141,4 +235,31 @@ td {
 
 @media (max-width: 560px) {
   .btn-add { width: 100%; justify-content: center; }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 24px 0;
+}
+
+.page-link {
+  padding: 10px 20px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 500;
+  transition: background .2s;
+}
+
+.page-link:hover { background: var(--accent); }
+
+.page-info {
+  font-size: .9rem;
+  color: var(--mid);
 }

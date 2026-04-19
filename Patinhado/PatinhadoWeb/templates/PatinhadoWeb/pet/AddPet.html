@@ -1,43 +1,125 @@
 {% extends "PatinhadoWeb/Base.html" %}
 {% load static %}
+{% block title %}Add Pet{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/addpet.css' %}">
 {% endblock %}
  
 {% block content %}
-  <main class="add-wrapper">
-    <div class="add-card">
-      <h1>Add Pet</h1>
-      <p class="subtitle">Register pet data</p>
- 
-      <form class="add-form" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="field-row">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.help_text %}
-                        <span class="helptext">{{ field.help_text }}</span>
-                    {% endif %}
-                    {% if field.errors %}
-                        <ul class="errorlist">
-                            {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            {% if form.non_field_errors %}
-                <ul class="errorlist">
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <input type="submit" value="Add Pet" class="btn-submit">
-        </form>
-    </div>
-</div>
+<main class="page-wrapper">
+  <div class="form-card">
+    <p class="pet-name-label">New Pet</p>
+    <h1>Add Pet</h1>
+    <p class="subtitle">Register pet data</p>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="field-group">
+        <label for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+        {{ form.nome }}
+        {% if form.nome.help_text %}
+          <span class="helptext">{{ form.nome.help_text }}</span>
+        {% endif %}
+        {% if form.nome.errors %}
+          <ul class="errorlist">
+            {% for erro in form.nome.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="field-group">
+        <label for="{{ form.especie.id_for_label }}">{{ form.especie.label }}</label>
+        {{ form.especie }}
+        {% if form.especie.help_text %}
+          <span class="helptext">{{ form.especie.help_text }}</span>
+        {% endif %}
+        {% if form.especie.errors %}
+          <ul class="errorlist">
+            {% for erro in form.especie.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="field-group">
+        <label for="{{ form.raca.id_for_label }}">{{ form.raca.label }}</label>
+        {{ form.raca }}
+        {% if form.raca.help_text %}
+          <span class="helptext">{{ form.raca.help_text }}</span>
+        {% endif %}
+        {% if form.raca.errors %}
+          <ul class="errorlist">
+            {% for erro in form.raca.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="field-group">
+        <label for="{{ form.idade.id_for_label }}">{{ form.idade.label }}</label>
+        {{ form.idade }}
+        {% if form.idade.help_text %}
+          <span class="helptext">{{ form.idade.help_text }}</span>
+        {% endif %}
+        {% if form.idade.errors %}
+          <ul class="errorlist">
+            {% for erro in form.idade.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="field-group">
+        <label for="{{ form.descricao.id_for_label }}">{{ form.descricao.label }}</label>
+        {{ form.descricao }}
+        {% if form.descricao.help_text %}
+          <span class="helptext">{{ form.descricao.help_text }}</span>
+        {% endif %}
+        {% if form.descricao.errors %}
+          <ul class="errorlist">
+            {% for erro in form.descricao.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="field-group">
+        <label for="{{ form.foto.id_for_label }}">{{ form.foto.label }}</label>
+        {{ form.foto }}
+        {% if form.foto.help_text %}
+          <span class="helptext">{{ form.foto.help_text }}</span>
+        {% endif %}
+        {% if form.foto.errors %}
+          <ul class="errorlist">
+            {% for erro in form.foto.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="field-group">
+        <label for="{{ form.foto_url.id_for_label }}">{{ form.foto_url.label }}</label>
+        {{ form.foto_url }}
+        {% if form.foto_url.help_text %}
+          <span class="helptext">{{ form.foto_url.help_text }}</span>
+        {% endif %}
+        {% if form.foto_url.errors %}
+          <ul class="errorlist">
+            {% for erro in form.foto_url.errors %}<li>{{ erro }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      {% if form.non_field_errors %}
+        <ul class="errorlist">
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="btn-row">
+        <button type="submit" class="btn-submit">Add Pet</button>
+        <a href="{% url 'listapets' %}" class="btn-cancelar">Cancel</a>
+      </div>
+    </form>
+  </div>
+</main>
 {% endblock %}

@@ -78,7 +78,7 @@
   /* ── GRID ────────────────────────────────── */
   .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
   }
 
@@ -152,6 +152,25 @@
     font-size: .78rem;
     color: var(--mid);
     line-height: 1.6;
+  }
+
+  .card-raca, .card-idade {
+    font-size: .72rem;
+    color: var(--mid);
+    margin-top: 4px;
+  }
+
+  .no-pets {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--mid);
+  }
+
+  .card-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   /* staggered animation */

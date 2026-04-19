@@ -26,6 +26,7 @@ class PetModelForm(forms.ModelForm):
             'raca',
             'idade',
             'descricao',
+            'foto',
             'foto_url',
         ]
  
@@ -72,10 +73,16 @@ class PetModelForm(forms.ModelForm):
         })
     )
  
+    foto = forms.ImageField(
+        label='Foto do Pet',
+        required=False,
+        help_text='Envie uma foto do pet (opcional)',
+    )
+
     foto_url = forms.URLField(
         label='URL da Foto',
         required=False,
-        help_text='Insira o link de uma foto do pet',
+        help_text='Ou insira o link de uma foto do pet',
         widget=forms.URLInput(attrs={
             'placeholder': 'https://exemplo.com/foto.jpg',
         })

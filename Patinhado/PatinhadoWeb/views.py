@@ -9,7 +9,8 @@ def logout_view(request):
     return redirect('home')
 
 def home(request):
-    return render(request, 'PatinhadoWeb/Home.html')
+    pets = Pet.objects.filter(adotado=False)[:10]
+    return render(request, 'PatinhadoWeb/Home.html', {'pets': pets})
 
 def login(request):
     return render(request, 'PatinhadoWeb/auth/Login.html')
@@ -34,7 +35,11 @@ def addpet(request):
 
 class PetListView(View):
     def get(self, request):
-        pets = Pet.objects.all()
+        from django.core.paginator import Paginator
+        pets_list = Pet.objects.all()
+        paginator = Paginator(pets_list, 50)
+        page_number = request.GET.get('page')
+        pets = paginator.get_page(page_number)
         contexto = {'pets': pets}
         return render(request, 'PatinhadoWeb/pet/PetList.html', contexto)
 
@@ -49,11 +54,15 @@ class PetCreateView(View):
     template_name = 'PatinhadoWeb/pet/AddPet.html'
     
     def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
         context = {'form': PetModelForm()}
         return render(request, self.template_name, context)
     
     def post(self, request, *args, **kwargs):
-        formulario = PetModelForm(request.POST)
+        if not request.user.is_authenticated:
+            return redirect('login')
+        formulario = PetModelForm(request.POST, request.FILES)
         if formulario.is_valid():
             pet = formulario.save(commit=False)
             pet.doador = request.user
@@ -77,7 +86,7 @@ class PetUpdateView(View):
         if not request.user.is_authenticated:
             return redirect('login')
         pet = get_object_or_404(Pet, pk=pk, doador=request.user)
-        formulario = PetModelForm(request.POST, instance=pet)
+        formulario = PetModelForm(request.POST, request.FILES, instance=pet)
         if formulario.is_valid():
             formulario.save()
             return redirect('detalhepet', pk=pk)

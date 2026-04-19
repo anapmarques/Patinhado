@@ -27,79 +27,13 @@
 
   <!-- 4 × 2 card grid -->
   <div class="grid">
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
+    {% for pet in pets %}
+      {% include "PatinhadoWeb/pet/_pet_card.html" %}
+    {% empty %}
+      <div class="no-pets">
+        <p>Nenhum pet disponível para adoção no momento.</p>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-img-placeholder"><span>img</span></div>
-      <div class="card-body">
-        <div class="card-category">Category</div>
-        <div class="card-title">Item Title</div>
-        <div class="card-desc">Short description text goes here.</div>
-      </div>
-    </div>
-
+    {% endfor %}
   </div>
 </section>
 {% endblock %}
