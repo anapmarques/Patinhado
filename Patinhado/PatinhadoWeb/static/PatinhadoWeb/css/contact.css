@@ -1,0 +1,40 @@
+.contact {
+  max-width: 680px;
+  margin: 80px auto;
+  padding: 0 40px;
+  animation: fadeUp .55s ease;
+}
+
+.contact h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+
+.contact p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--mid);
+}
+
+.contact a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.contact a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 560px) {
+  .contact {
+    margin: 50px auto;
+    padding: 0 20px;
+  }
+  .contact h1 {
+    font-size: 2rem;
+  }
+}

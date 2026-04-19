@@ -89,6 +89,49 @@ class PetModelForm(forms.ModelForm):
     )
 
 
+class UsuarioProfileForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['first_name', 'last_name', 'email', 'telefone', 'endereco', 'imagem']
+
+    first_name = forms.CharField(
+        label='Nome',
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Seu nome'})
+    )
+
+    last_name = forms.CharField(
+        label='Sobrenome',
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Seu sobrenome'})
+    )
+
+    email = forms.EmailField(
+        label='Email',
+        required=False,
+        widget=forms.EmailInput(attrs={'placeholder': 'seu@email.com'})
+    )
+
+    telefone = forms.CharField(
+        label='Telefone',
+        required=False,
+        max_length=20,
+        widget=forms.TextInput(attrs={'placeholder': '(11) 99999-9999'})
+    )
+
+    endereco = forms.CharField(
+        label='Endereço',
+        required=False,
+        widget=forms.Textarea(attrs={'placeholder': 'Seu endereço', 'rows': 3})
+    )
+
+    imagem = forms.ImageField(
+        label='Foto de Perfil',
+        required=False,
+        help_text='Envie uma foto para seu perfil',
+    )
+
+
 class PedidoAdocaoForm(forms.ModelForm):
     class Meta:
         model = PedidoAdocao
@@ -99,7 +142,7 @@ class PedidoAdocaoForm(forms.ModelForm):
         required=False,
         help_text='Conte um pouco sobre você e por que quer adotar este pet',
         widget=forms.Textarea(attrs={
-            'placeholder': 'Olá! Me chamo... e estou interesado em adotar o pet...',
+            'placeholder': 'Olá! Me chamo... e estou interesados em adotar o pet...',
             'rows': 5,
         })
     )

@@ -1,14 +1,12 @@
 <a href="{% url 'detalhepet' pet.pk %}" class="card">
   {% if pet.foto %}
     <div class="card-img" style="background-image: url('{{ pet.foto.url }}');">
-      <span>{{ pet.nome.0|upper }}</span>
     </div>
   {% elif pet.foto_url %}
     <div class="card-img" style="background-image: url('{{ pet.foto_url }}');">
-      <span>{{ pet.nome.0|upper }}</span>
     </div>
   {% else %}
-    <div class="card-img-placeholder"><span>{{ pet.nome.0|upper }}</span></div>
+    <div class="card-img-placeholder"></div>
   {% endif %}
   <div class="card-body">
     <div class="card-category">{{ pet.get_especie_display }}</div>

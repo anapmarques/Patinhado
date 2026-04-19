@@ -1,0 +1,15 @@
+{% extends "PatinhadoWeb/Base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'PatinhadoWeb/css/about.css' %}">
+{% endblock %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<section class="about">
+  <h1>About Us</h1>
+  <p>Somos uma plataforma dedicada a conectar animais de estimação que precisam de um lar amoroso com pessoas que desejam adotar. Acreditamos que todo animal merece uma segunda chance e um lar penuh de carinho.</p>
+</section>
+{% endblock %}

@@ -8,7 +8,9 @@
   .hero-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #d4c9bb 0%, #b8aa98 40%, #8c7c6a 100%);
+    background-image: url("../home_bg.jpg");
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;

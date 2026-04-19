@@ -24,11 +24,11 @@
     <table class="info-table">
       <tr>
         <th>Solicitante</th>
-        <td>{{ pedido.solicitante.username }}</td>
+        <td>{{ pedido.solicitante.get_full_name|default:pedido.solicitante.username }}</td>
       </tr>
       <tr>
         <th>Doador</th>
-        <td>{{ pedido.animal.doador.username }}</td>
+        <td>{{ pedido.animal.doador.get_full_name|default:pedido.animal.doador.username }}</td>
       </tr>
       <tr>
         <th>Status</th>

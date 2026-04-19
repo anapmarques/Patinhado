@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.views.generic.base import View
-from .forms import UsuarioCreationForm, PetModelForm, PedidoAdocaoForm
+from .forms import UsuarioCreationForm, PetModelForm, PedidoAdocaoForm, UsuarioProfileForm
 from .models import Pet, PedidoAdocao
 
 def logout_view(request):
@@ -11,6 +11,12 @@ def logout_view(request):
 def home(request):
     pets = Pet.objects.filter(adotado=False)[:10]
     return render(request, 'PatinhadoWeb/Home.html', {'pets': pets})
+
+def about(request):
+    return render(request, 'PatinhadoWeb/About.html')
+
+def contact(request):
+    return render(request, 'PatinhadoWeb/Contact.html')
 
 def login(request):
     return render(request, 'PatinhadoWeb/auth/Login.html')
@@ -251,3 +257,41 @@ class ProfileView(View):
             'pedidos_recebidos': pedidos_recebidos,
         }
         return render(request, self.template_name, context)
+
+
+class EditProfileView(View):
+    template_name = 'PatinhadoWeb/EditProfile.html'
+    
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        form = UsuarioProfileForm(instance=request.user)
+        context = {'form': form}
+        return render(request, self.template_name, context)
+    
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        form = UsuarioProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
+
+class DeleteProfileView(View):
+    template_name = 'PatinhadoWeb/DeleteProfile.html'
+    
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        return render(request, self.template_name)
+    
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        user = request.user
+        logout(request)
+        user.delete()
+        return redirect('home')

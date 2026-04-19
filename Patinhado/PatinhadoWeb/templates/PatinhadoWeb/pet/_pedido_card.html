@@ -13,7 +13,7 @@
     <div class="history-title">{{ pedido.animal.nome }}</div>
     <div class="history-meta">
       {% if show_requester and pedido.solicitante %}
-        Por {{ pedido.solicitante.username }}
+        Por {{ pedido.solicitante.get_full_name|default:pedido.solicitante.username }}
       {% endif %}
       {% if pedido.status == 'pendente' %}
         <span class="badge-pendente">Pendente</span>

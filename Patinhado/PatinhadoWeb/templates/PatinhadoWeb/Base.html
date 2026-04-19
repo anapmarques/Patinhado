@@ -16,12 +16,11 @@
 
 <!-- ── HEADER ────────────────────────────────── -->
 <header>
-  <a href="{% url 'home' %}" class="logo">Logo</a>
+  <a href="{% url 'home' %}" class="logo"><img src="{% static 'PatinhadoWeb/logo.png' %}" alt="Logo"></a>
 
   <nav>
       <a href="{% url 'about' %}"   {% if request.resolver_match.url_name == 'about'   %}class="active"{% endif %}>About Us</a>
       <a href="{% url 'listapets' %}"    {% if request.resolver_match.url_name == 'list'    %}class="active"{% endif %}>List</a>
-      <a href="{% url 'give' %}"    {% if request.resolver_match.url_name == 'give'    %}class="active"{% endif %}>Give</a>
       <a href="{% url 'contact' %}" {% if request.resolver_match.url_name == 'contact' %}class="active"{% endif %}>Contact</a>
   </nav>
 
@@ -54,11 +53,10 @@
 
 <!-- ── FOOTER ─────────────────────────────────── -->
 <footer>
-  <div class="footer-logo">Logo</div>
+  <div class="footer-logo"><img src="{% static 'PatinhadoWeb/logo.png' %}" alt="Logo"></div>
   <div class="footer-links">
     <a href="{% url 'about' %}">About Us</a>
     <a href="{% url 'list' %}">List</a>
-    <a href="{% url 'give' %}">Give</a>
     <a href="{% url 'contact' %}">Contact</a>
   </div>
   <div class="footer-copy">© 2026</div>
