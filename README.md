@@ -63,7 +63,7 @@ O sistema de adoção funciona em três etapas:
 - **Imagens**: Pillow 12.2.0
 - **Autenticacao**: Django Auth com argon2-cffi
 - **Frontend**: HTML5, CSS3
-- **Containerizacao**: Docker e Docker Compose
+- **Containerizacao**: Docker e Docker Compose (imagem Alpine leve)
 
 ## Como Usar
 
