@@ -1,6 +1,6 @@
 {% extends "PatinhadoWeb/Base.html" %}
 {% load static %}
-{% block title %}Add Pet{% endblock %}
+{% block title %}Cadastrar Pet{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'PatinhadoWeb/css/pet/addpet.css' %}">
@@ -9,13 +9,13 @@
 {% block content %}
 <main class="page-wrapper">
   <div class="form-card">
-    <p class="pet-name-label">New Pet</p>
-    <h1>Add Pet</h1>
-    <p class="subtitle">Register pet data</p>
-
+    <p class="pet-name-label">Novo Pet</p>
+    <h1>Cadastrar Pet</h1>
+    <p class="subtitle">Cadastre os dados do pet</p>
+ 
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-
+ 
       <div class="field-group">
         <label for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
         {{ form.nome }}
@@ -28,7 +28,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       <div class="field-group">
         <label for="{{ form.especie.id_for_label }}">{{ form.especie.label }}</label>
         {{ form.especie }}
@@ -41,7 +41,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       <div class="field-group">
         <label for="{{ form.raca.id_for_label }}">{{ form.raca.label }}</label>
         {{ form.raca }}
@@ -54,7 +54,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       <div class="field-group">
         <label for="{{ form.idade.id_for_label }}">{{ form.idade.label }}</label>
         {{ form.idade }}
@@ -67,7 +67,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       <div class="field-group">
         <label for="{{ form.descricao.id_for_label }}">{{ form.descricao.label }}</label>
         {{ form.descricao }}
@@ -80,7 +80,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       <div class="field-group">
         <label for="{{ form.foto.id_for_label }}">{{ form.foto.label }}</label>
         {{ form.foto }}
@@ -93,7 +93,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       <div class="field-group">
         <label for="{{ form.foto_url.id_for_label }}">{{ form.foto_url.label }}</label>
         {{ form.foto_url }}
@@ -106,7 +106,7 @@
           </ul>
         {% endif %}
       </div>
-
+ 
       {% if form.non_field_errors %}
         <ul class="errorlist">
           {% for error in form.non_field_errors %}
@@ -114,10 +114,10 @@
           {% endfor %}
         </ul>
       {% endif %}
-
+ 
       <div class="btn-row">
-        <button type="submit" class="btn-submit">Add Pet</button>
-        <a href="{% url 'listapets' %}" class="btn-cancelar">Cancel</a>
+        <button type="submit" class="btn-submit">Cadastrar Pet</button>
+        <a href="{% url 'listapets' %}" class="btn-cancelar">Cancelar</a>
       </div>
     </form>
   </div>

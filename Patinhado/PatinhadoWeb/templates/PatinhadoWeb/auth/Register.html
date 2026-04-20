@@ -1,6 +1,6 @@
 {% extends "PatinhadoWeb/Base.html" %}
 {% load static %}
-{% block title %}Sign Up{% endblock %}
+{% block title %}Cadastre-se{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'PatinhadoWeb/css/register.css' %}">
@@ -9,8 +9,8 @@
 {% block content %}
 <div class="register-wrapper">
     <div class="register-card">
-        <h1>Sign Up</h1>
-        <p class="subtitle">Create your account</p>
+        <h1>Cadastre-se</h1>
+        <p class="subtitle">Crie sua conta</p>
         <form method="post" class="register-form">
             {% csrf_token %}
             {% for field in form %}
@@ -36,9 +36,9 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <input type="submit" value="Create Account" class="btn-submit">
+            <input type="submit" value="Criar Conta" class="btn-submit">
         </form>
-        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+        <p class="login-link">Já tem uma conta? <a href="{% url 'login' %}">Entre</a></p>
     </div>
 </div>
 {% endblock %}

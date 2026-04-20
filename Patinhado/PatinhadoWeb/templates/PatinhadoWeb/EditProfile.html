@@ -1,6 +1,6 @@
 {% extends "PatinhadoWeb/Base.html" %}
 {% load static %}
-{% block title %}Edit Profile{% endblock %}
+{% block title %}Editar Perfil{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'PatinhadoWeb/css/register.css' %}">
@@ -9,8 +9,8 @@
 {% block content %}
 <div class="register-wrapper">
     <div class="register-card">
-        <h1>Edit Profile</h1>
-        <p class="subtitle">Update your information</p>
+        <h1>Editar Perfil</h1>
+        <p class="subtitle">Atualize suas informações</p>
         <form method="post" class="register-form" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
@@ -36,9 +36,9 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <input type="submit" value="Save Changes" class="btn-submit">
+            <input type="submit" value="Salvar Alterações" class="btn-submit">
         </form>
-        <p class="login-link"><a href="{% url 'profile' %}">Cancel and return to profile</a></p>
+        <p class="login-link"><a href="{% url 'profile' %}">Cancelar e retornar ao perfil</a></p>
     </div>
 </div>
 {% endblock %}
