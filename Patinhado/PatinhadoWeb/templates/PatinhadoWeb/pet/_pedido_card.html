@@ -1,0 +1,30 @@
+{% load static %}
+<a href="{% url 'detalhe_pedido' pedido.pk %}" class="history-card">
+  <div class="history-img">
+    {% if pedido.animal.foto %}
+      <img src="{{ pedido.animal.foto.url }}" alt="{{ pedido.animal.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
+    {% elif pedido.animal.foto_url %}
+      <img src="{{ pedido.animal.foto_url }}" alt="{{ pedido.animal.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
+    {% else %}
+      <span>{{ pedido.animal.especie|upper|slice:":3" }}</span>
+    {% endif %}
+  </div>
+  <div class="history-body">
+    <div class="history-title">{{ pedido.animal.nome }}</div>
+    <div class="history-meta">
+      {% if show_requester and pedido.solicitante %}
+        Por {{ pedido.solicitante.get_full_name|default:pedido.solicitante.username }}
+      {% endif %}
+      {% if pedido.status == 'pendente' %}
+        <span class="badge-pendente">Pendente</span>
+      {% elif pedido.status == 'aprovado' %}
+        <span class="badge-aprovado">Aprovado</span>
+      {% elif pedido.status == 'cancelado' %}
+        <span class="badge-cancelado">Cancelado</span>
+      {% else %}
+        <span class="badge-rejeitado">Rejeitado</span>
+      {% endif %}
+      · {{ pedido.data_pedido|date:"M Y" }}
+    </div>
+  </div>
+</a>

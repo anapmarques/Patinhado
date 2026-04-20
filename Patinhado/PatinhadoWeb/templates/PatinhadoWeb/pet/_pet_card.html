@@ -1,0 +1,18 @@
+<a href="{% url 'detalhepet' pet.pk %}" class="card">
+  {% if pet.foto %}
+    <div class="card-img" style="background-image: url('{{ pet.foto.url }}');">
+    </div>
+  {% elif pet.foto_url %}
+    <div class="card-img" style="background-image: url('{{ pet.foto_url }}');">
+    </div>
+  {% else %}
+    <div class="card-img-placeholder"></div>
+  {% endif %}
+  <div class="card-body">
+    <div class="card-category">{{ pet.get_especie_display }}</div>
+    <div class="card-title">{{ pet.nome }}</div>
+    <div class="card-desc">{{ pet.descricao|truncatechars:80 }}</div>
+    {% if pet.raca %}<div class="card-raca">Raça: {{ pet.raca }}</div>{% endif %}
+    {% if pet.idade %}<div class="card-idade">Idade: {{ pet.idade }} {% if pet.idade == 1 %}ano{% else %}anos{% endif %}</div>{% endif %}
+  </div>
+</a>

@@ -12,7 +12,7 @@
       <h1>Editar pet</h1>
       <p class="subtitle">Atualize os dados de {{ pet.nome }}</p>
  
-      <form action="" method="POST">
+      <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
  
         <!-- Nome -->
@@ -76,6 +76,20 @@
           {% endif %}
         </div>
  
+        <!-- Foto -->
+        <div class="field-group">
+          <label for="{{ form.foto.id_for_label }}">{{ form.foto.label }}</label>
+          {{ form.foto }}
+          {% if form.foto.help_text %}
+            <span class="helptext">{{ form.foto.help_text }}</span>
+          {% endif %}
+          {% if form.foto.errors %}
+            <ul class="errorlist">
+              {% for erro in form.foto.errors %}<li>{{ erro }}</li>{% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
         <!-- URL da Foto -->
         <div class="field-group">
           <label for="{{ form.foto_url.id_for_label }}">{{ form.foto_url.label }}</label>

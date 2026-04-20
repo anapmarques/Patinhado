@@ -25,7 +25,7 @@
 
     <div class="profile-info">
       <div class="info-row">
-        <span class="info-label">Name</span>
+        <span class="info-label">Nome</span>
         <span class="info-value">{{ usuario.get_full_name|default:usuario.username }}</span>
       </div>
       <div class="info-row">
@@ -33,24 +33,26 @@
         <span class="info-value">{{ usuario.email|default:"—" }}</span>
       </div>
       <div class="info-row">
-        <span class="info-label">Phone</span>
+        <span class="info-label">Telefone</span>
         <span class="info-value">{{ usuario.telefone|default:"—" }}</span>
       </div>
       <div class="info-row">
-        <span class="info-label">Address</span>
+        <span class="info-label">Endereço</span>
         <span class="info-value">{{ usuario.endereco|default:"—" }}</span>
       </div>
     </div>
   </div>
 
-  <h2 class="section-title">My Pets for Adoption</h2>
+  <h2 class="section-title">Meus Pets para Adoção</h2>
 
   <div class="history-grid">
     {% if pets_doacao %}
       {% for pet in pets_doacao %}
         <a href="{% url 'detalhepet' pet.pk %}" class="history-card">
           <div class="history-img">
-            {% if pet.foto_url %}
+            {% if pet.foto %}
+              <img src="{{ pet.foto.url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% elif pet.foto_url %}
               <img src="{{ pet.foto_url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
             {% else %}
               <span>{{ pet.especie|upper|slice:":3" }}</span>
@@ -63,18 +65,44 @@
         </a>
       {% endfor %}
     {% else %}
-      <p style="color: var(--mid); font-size: .9rem;">You haven't posted any pets for adoption yet.</p>
+      <p style="color: var(--mid); font-size: .9rem;">Você ainda não cadastrou nenhum pet para adoção.</p>
     {% endif %}
   </div>
 
-  <h2 class="section-title">Adoption History</h2>
+  <h2 class="section-title">Solicitações de Adoção Recebidas</h2>
+
+  <div class="history-grid">
+    {% if pedidos_recebidos %}
+      {% for pedido in pedidos_recebidos %}
+        {% include "PatinhadoWeb/pet/_pedido_card.html" with show_requester=True %}
+      {% endfor %}
+    {% else %}
+      <p style="color: var(--mid); font-size: .9rem;">Você ainda não recebeu nenhuma solicitação de adoção.</p>
+    {% endif %}
+  </div>
+
+  <h2 class="section-title">Minhas Solicitações de Adoção</h2>
+
+  <div class="history-grid">
+    {% if pedidos_adocao %}
+      {% for pedido in pedidos_adocao %}
+        {% include "PatinhadoWeb/pet/_pedido_card.html" with show_requester=False %}
+      {% endfor %}
+    {% else %}
+      <p style="color: var(--mid); font-size: .9rem;">Você ainda não fez nenhuma solicitação de adoção.</p>
+    {% endif %}
+  </div>
+
+  <h2 class="section-title">Histórico de Adoções</h2>
 
   <div class="history-grid">
     {% if pets_adotados %}
       {% for pet in pets_adotados %}
-        <div class="history-card">
+        <a href="{% url 'detalhepet' pet.pk %}" class="history-card">
           <div class="history-img">
-            {% if pet.foto_url %}
+            {% if pet.foto %}
+              <img src="{{ pet.foto.url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% elif pet.foto_url %}
               <img src="{{ pet.foto_url }}" alt="{{ pet.nome }}" style="width: 100%; height: 100%; object-fit: cover;">
             {% else %}
               <span>{{ pet.especie|upper|slice:":3" }}</span>
@@ -84,10 +112,10 @@
             <div class="history-title">{{ pet.nome }}</div>
             <div class="history-meta">{{ pet.get_especie_display }} · {{ pet.data_adocao|date:"M Y" }}</div>
           </div>
-        </div>
+        </a>
       {% endfor %}
     {% else %}
-      <p style="color: var(--mid); font-size: .9rem;">You haven't adopted any pets yet.</p>
+      <p style="color: var(--mid); font-size: .9rem;">Você ainda não adotou nenhum pet.</p>
     {% endif %}
   </div>
 
@@ -97,24 +125,24 @@
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
       </svg>
-      Change Password
+      Alterar Senha
     </a>
-    <button class="btn">
+    <a href="{% url 'edit_profile' %}" class="btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
       </svg>
-      Edit
-    </button>
-    <button class="btn btn-delete">
+      Editar
+    </a>
+    <a href="{% url 'delete_profile' %}" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <polyline points="3 6 5 6 21 6"/>
         <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
         <path d="M10 11v6M14 11v6"/>
         <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
       </svg>
-      Delete
-    </button>
+      Excluir
+    </a>
   </div>
 </main>
 {% endblock %}

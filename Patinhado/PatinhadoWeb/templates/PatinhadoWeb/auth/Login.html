@@ -1,6 +1,6 @@
 {% extends "PatinhadoWeb/Base.html" %}
 {% load static %}
-{% block title %}Sign In{% endblock %}
+{% block title %}Entrar{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'PatinhadoWeb/css/login.css' %}">
@@ -9,17 +9,17 @@
 {% block content %}
 <div class="login-wrapper">
     <div class="login-card">
-        <h1>Sign In</h1>
-        <p class="subtitle">Log in to continue</p>
+        <h1>Entrar</h1>
+        <p class="subtitle">Faça login para continuar</p>
         <form method="post">
             {% csrf_token %}
             <table class="formulario">
                 {{ form.as_table }}
             </table>
-            <input type="submit" value="Sign In" class="btn-submit">
+            <input type="submit" value="Entrar" class="btn-submit">
         </form>
-        <p class="register-link"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
-        <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        <p class="register-link"><a href="{% url 'password_reset' %}">Esqueceu a senha?</a></p>
+        <p class="register-link">Não tem uma conta? <a href="{% url 'register' %}">Cadastre-se</a></p>
     </div>
 </div>
 {% endblock %}

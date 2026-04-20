@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario, Pet
+from .models import Usuario, Pet, PedidoAdocao
 
 
 class UsuarioCreationForm(UserCreationForm):
@@ -26,6 +26,7 @@ class PetModelForm(forms.ModelForm):
             'raca',
             'idade',
             'descricao',
+            'foto',
             'foto_url',
         ]
  
@@ -72,11 +73,76 @@ class PetModelForm(forms.ModelForm):
         })
     )
  
+    foto = forms.ImageField(
+        label='Foto do Pet',
+        required=False,
+        help_text='Envie uma foto do pet (opcional)',
+    )
+
     foto_url = forms.URLField(
         label='URL da Foto',
         required=False,
-        help_text='Insira o link de uma foto do pet',
+        help_text='Ou insira o link de uma foto do pet',
         widget=forms.URLInput(attrs={
             'placeholder': 'https://exemplo.com/foto.jpg',
+        })
+    )
+
+
+class UsuarioProfileForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['first_name', 'last_name', 'email', 'telefone', 'endereco', 'imagem']
+
+    first_name = forms.CharField(
+        label='Nome',
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Seu nome'})
+    )
+
+    last_name = forms.CharField(
+        label='Sobrenome',
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Seu sobrenome'})
+    )
+
+    email = forms.EmailField(
+        label='Email',
+        required=False,
+        widget=forms.EmailInput(attrs={'placeholder': 'seu@email.com'})
+    )
+
+    telefone = forms.CharField(
+        label='Telefone',
+        required=False,
+        max_length=20,
+        widget=forms.TextInput(attrs={'placeholder': '(11) 99999-9999'})
+    )
+
+    endereco = forms.CharField(
+        label='Endereço',
+        required=False,
+        widget=forms.Textarea(attrs={'placeholder': 'Seu endereço', 'rows': 3})
+    )
+
+    imagem = forms.ImageField(
+        label='Foto de Perfil',
+        required=False,
+        help_text='Envie uma foto para seu perfil',
+    )
+
+
+class PedidoAdocaoForm(forms.ModelForm):
+    class Meta:
+        model = PedidoAdocao
+        fields = ['mensagem']
+
+    mensagem = forms.CharField(
+        label='Mensagem para o doador',
+        required=False,
+        help_text='Conte um pouco sobre você e por que quer adotar este pet',
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Olá! Me chamo... e estou interesados em adotar o pet...',
+            'rows': 5,
         })
     )

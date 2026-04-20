@@ -4,7 +4,7 @@
     --mid: #6b6560;
     --accent: #c0392b;
     --card-bg: #faf8f5;
-    --nav-h: 68px;
+    --nav-h: 100px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,16 +36,15 @@
   }
 
   .logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.35rem;
-    letter-spacing: .04em;
-    border: 1.5px solid var(--ink);
-    padding: 4px 12px;
-    text-transform: uppercase;
-    white-space: nowrap;
     text-decoration: none;
     color: var(--ink);
+  }
+
+  .logo img {
+    height: 70px;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
 
   nav {
@@ -111,12 +110,11 @@
     margin-top: auto;
   }
 
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: .9rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
+  .footer-logo img {
+    height: 72px;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
 
   .footer-links {

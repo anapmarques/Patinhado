@@ -50,6 +50,7 @@ class Pet(models.Model):
     )
     data_chegada = models.DateTimeField(auto_now_add=True)
     data_adocao = models.DateTimeField(blank=True, null=True)
+    foto = models.ImageField(upload_to='pets/%Y/%m/%d/', blank=True, null=True)
     foto_url = models.URLField(blank=True)
 
     class Meta:
@@ -92,6 +93,7 @@ class PedidoAdocao(models.Model):
         PENDENTE = "pendente", "Pendente"
         APROVADO = "aprovado", "Aprovado"
         REJEITADO = "rejeitado", "Rejeitado"
+        CANCELADO = "cancelado", "Cancelado"
 
     solicitante = models.ForeignKey(
         Usuario,
@@ -117,9 +119,9 @@ class PedidoAdocao(models.Model):
         ]
 
     def clean(self):
-        if self.status == self.Status.APROVADO and self.animal.adotado:
-            raise ValidationError("Não é possível aprovar um pedido para um animal já adotado.")
-        if self.animal.adotado and self.status == self.Status.PENDENTE:
+        if not self.animal_id:
+            return
+        if self.status == self.Status.PENDENTE and self.animal.adotado:
             raise ValidationError("Não é possível criar um pedido pendente para um animal já adotado.")
 
     def save(self, *args, **kwargs):
@@ -131,10 +133,10 @@ class PedidoAdocao(models.Model):
     def aprovar(self):
         if self.animal.adotado:
             raise ValidationError("Este animal já foi adotado.")
-        self.animal.marcar_adotado(self.solicitante)
         self.status = self.Status.APROVADO
         self.data_resposta = timezone.now()
-        self.save()
+        self.save(update_fields=['status', 'data_resposta'])
+        self.animal.marcar_adotado(self.solicitante)
 
     def rejeitar(self):
         self.status = self.Status.REJEITADO

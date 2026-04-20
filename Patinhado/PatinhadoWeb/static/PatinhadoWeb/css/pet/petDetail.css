@@ -84,8 +84,9 @@
 .detail-img,
 .detail-img-placeholder {
   width: 100%;
-  min-height: 480px;
+  height: 400px;
   object-fit: cover;
+  object-position: center;
   display: block;
   background: linear-gradient(135deg, #d4c9bb 0%, #b8aa98 40%, #8c7c6a 100%);
 }
@@ -173,6 +174,35 @@
   margin-bottom: 36px;
 }
 
+/* ── INFO TABLE ───────────────────────────── */
+.info-table {
+  width: 100%;
+  margin: 8px 0 24px;
+  border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+  padding: 12px 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(26,23,20,.08);
+  font-size: .9rem;
+}
+
+.info-table th {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  width: 100px;
+}
+
+.info-table td {
+  color: var(--ink);
+  font-weight: 300;
+}
+
 /* ── ACTION BUTTONS ──────────────────────── */
 .detail-actions {
   display: flex;
@@ -215,6 +245,24 @@
   color: white;
   border-color: var(--accent);
 }
+
+.btn-adotar {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  background: #4caf50;
+  padding: 12px 28px;
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+  display: inline-block;
+}
+
+.btn-adotar:hover { background: #388e3c; }
 
 /* ── SIDEBAR (ficha técnica) ─────────────── */
 .detail-sidebar {
