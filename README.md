@@ -6,38 +6,38 @@ Plataforma web para adoção de pets, desenvolvida em Django.
 
 ### Para Usuários
 
-- **Cadastro e Autenticação**: Sistema completo de registro de usuarios com login e logout
-- **Gerenciamento de Perfil**: Edicao e exclusao de perfil do usuario com foto, telefone e endereco
-- **Listagem de Pets**: Visualizacao de animais disponiveis para adoção na pagina inicial
-- **Detalhes de Pet**: Visualizacao completa das informacoes de cada animal
+- **Cadastro e Autenticação**: Sistema completo de registro de usuários com login e logout
+- **Gerenciamento de Perfil**: Edição e exclusao de perfil do usuario com foto, telefone e endereço
+- **Listagem de Pets**: Visualização de animais disponiveis para adoção na página inicial
+- **Detalhes de Pet**: Visualização completa das informações de cada animal
 
 ### Para Doadores
 
-- **Cadastro de Pet**: Adicionar novos animais para doacao com foto, nome, especie, raca, idade e descricao
-- **Edicao de Pet**: Atualizar informacoes dos animais cadastrados
-- **Exclusao de Pet**: Remover animais do sistema
+- **Cadastro de Pet**: Adicionar novos animais para doação com foto, nome, espécie, raça, idade e descrição
+- **Edição de Pet**: Atualizar informações dos animais cadastrados
+- **Exclusão de Pet**: Remover animais do sistema
 - **Gerenciamento de Pedidos**: Aprovar ou rejeitar pedidos de adoção recebidos
 
 ### Para Adotantes
 
-- **Solicitacao de Adoção**: Enviar pedido de adoção para um animal
-- **Edicao de Pedido**: Modificar mensagem do pedido (enquanto pendente)
+- **Solicitação de Adoção**: Enviar pedido de adoção para um animal
+- **Edição de Pedido**: Modificar mensagem do pedido (enquanto pendente)
 - **Cancelamento de Pedido**: Cancelar pedido pendente
 - **Acompanhamento**: Ver status dos pedidos enviados
 
 ### Recursos Adicionais
 
-- **Painel do Usuario**: Visualizacao centralizada de pets doados, pets adotados e pedidos
-- **Validacoes de Negocio**: Garante queanimais adotados tenham adotante definido
-- **Paginação**: Lista de pets com paginacao para melhor desempenho
-- **Upload de Imagens**: Suporte a upload de fotos de pets e usuarios
+- **Painel do Usuário**: Visualização centralizada de pets doados, pets adotados e pedidos
+- **Validações de Negócio**: Garante que animais adotados tenham adotante definido
+- **Paginação**: Lista de pets com paginação para melhor desempenho
+- **Upload de Imagens**: Suporte a upload de fotos de pets e usuários
 
 ## Workflow
 
 O sistema de adoção funciona em três etapas:
 
 1. **Doação**: Um usuário cadastra um pet para adoção
-2. **Solicitação**: Outro usuário Interested envía um pedido de adoção
+2. **Solicitação**: Outro usuário interessado envía um pedido de adoção
 3. **Aprovação**: O doador aprova ou rejeita o pedido
 
 ### Páginas Principais
@@ -46,7 +46,7 @@ O sistema de adoção funciona em três etapas:
 |--------|-----------|
 | **Home** (`/`) | Lista pets disponíveis para adoção com paginação |
 | **Lista de Pets** (`/pets/`) | Visualização completa de todos os pets |
-| **Detalhes do Pet** (`/pets/<id>/`) | Informações completas do animal com opción de adoção |
+| **Detalhes do Pet** (`/pets/<id>/`) | Informações completas do animal com opção de adoção |
 | **Adotar Pet** (`/pets/<id>/adotar/`) | Formulário para solicitar adoção |
 | **Painel do Usuário** (`/profile/`) | Central do usuário: pets doados, adotados e pedidos |
 | **Cadastrar Pet** (`/pets/add/`) | Formulário para adicionar novo pet |
@@ -58,12 +58,12 @@ O sistema de adoção funciona em três etapas:
 
 ## Tecnologias Utilizadas
 
-- **Backend**: Django 6.0.3
+- **Backend**: Django 6.0.4
 - **Banco de Dados**: SQLite (desenvolvimento)
 - **Imagens**: Pillow 12.2.0
-- **Autenticacao**: Django Auth com argon2-cffi
+- **Autenticação**: Django Auth com argon2-cffi
 - **Frontend**: HTML5, CSS3
-- **Containerizacao**: Docker e Docker Compose (imagem Alpine leve)
+- **Containerização**: Docker e Docker Compose (imagem Alpine leve)
 
 ## Como Usar
 
